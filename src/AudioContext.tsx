@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createContext } from "react";
+import audio from "/john6v1-15.mp3";
 
 const AudioContext = createContext({
   currentTime: 0,
@@ -75,7 +76,7 @@ function AudioContextProvider({ children }: AudioContextProps) {
         },
       }}
     >
-      <audio src="/john6v1-15.mp3" ref={audioRef} />
+      <audio src={audio} ref={audioRef} />
       {children}
     </AudioContext.Provider>
   );
