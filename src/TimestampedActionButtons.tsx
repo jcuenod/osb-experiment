@@ -20,8 +20,8 @@ function TimestampedActionButtons({
   leftPosition: number;
   width: number;
 }) {
-  const { duration, currentTime, pause, play } = useContext(AudioContext);
-  const [activeModal, setActiveModal] = useState(null);
+  const { duration, currentTime, pause } = useContext(AudioContext);
+  const [activeModalId, setActiveModalId] = useState<string>("");
   return (
     <>
       <div
@@ -40,7 +40,7 @@ function TimestampedActionButtons({
             left={getLeftRelativeToWidth(button.start, duration, width) || 0}
             type={button.type as "location" | "image"}
             onClick={() => {
-              setActiveModal(button);
+              setActiveModalId(button.id);
               pause();
             }}
             active={
@@ -57,9 +57,9 @@ function TimestampedActionButtons({
             position: "absolute",
             inset: 0,
             backgroundColor: "rgba(255,255,255,0.5)",
-            pointerEvents: activeModal ? "auto" : "none",
-            opacity: activeModal ? 1 : 0,
-            transform: `translateY(${activeModal ? 0 : "5px"})`,
+            pointerEvents: activeModalId ? "auto" : "none",
+            opacity: activeModalId ? 1 : 0,
+            transform: `translateY(${activeModalId ? 0 : "5px"})`,
             transition:
               "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, backdropFilter 0.2s ease-in-out",
             zIndex: 10,
@@ -71,10 +71,10 @@ function TimestampedActionButtons({
             overflowY: "auto",
           }}
           onClick={() => {
-            setActiveModal(null);
+            setActiveModalId("");
           }}
         >
-          <ModalContent id={activeModal?.id} />
+          <ModalContent id={activeModalId} />
         </div>,
         document.body
       )}
