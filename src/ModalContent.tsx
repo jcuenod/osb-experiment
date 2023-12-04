@@ -4,9 +4,9 @@ const getContentById = (id: string) => {
   return assets.find((asset) => asset.id === id);
 };
 
-// convert vite assets to absolute paths
 const getAbsolutePath = (relativePath: string) => {
-  return new URL(relativePath, import.meta.url).href;
+  // convert relative path to assets to absolute path given vite's base url
+  return new URL(relativePath, import.meta.env.BASE_URL).href;
 };
 
 type ModalContentProps = {
