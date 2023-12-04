@@ -4,6 +4,11 @@ const getContentById = (id: string) => {
   return assets.find((asset) => asset.id === id);
 };
 
+// convert vite assets to absolute paths
+const getAbsolutePath = (relativePath: string) => {
+  return new URL(relativePath, import.meta.url).href;
+};
+
 type ModalContentProps = {
   id: string;
 };
@@ -30,7 +35,7 @@ const ModalContent = ({ id }: ModalContentProps) => {
           {images
             ? images.map((url) => (
                 <img
-                  src={url}
+                  src={getAbsolutePath(url)}
                   alt={title}
                   key={url}
                   style={{ maxHeight: "20vh" }}
@@ -39,7 +44,11 @@ const ModalContent = ({ id }: ModalContentProps) => {
             : null}
         </div>
       )}
-      {audio && <div>{audio ? <audio controls src={audio} /> : null}</div>}
+      {audio && (
+        <div>
+          {audio ? <audio controls src={getAbsolutePath(audio)} /> : null}
+        </div>
+      )}
     </div>
   );
 };
