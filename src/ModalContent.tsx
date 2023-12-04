@@ -1,6 +1,6 @@
 import assets from "./assets/asset_manifest.json";
 
-const getContentById = (id) => {
+const getContentById = (id: string) => {
   return assets.find((asset) => asset.id === id);
 };
 

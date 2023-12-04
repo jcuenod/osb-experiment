@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import "./App.css";
 import Waveform from "./Waveform";
 import AudioButtons from "./AudioButtons";
