@@ -5,8 +5,7 @@ const getContentById = (id: string) => {
 };
 
 const getAbsolutePath = (relativePath: string) => {
-  // convert relative path to assets to absolute path given vite's base url
-  return new URL(relativePath, import.meta.env.BASE_URL).href;
+  return `${import.meta.env.BASE_URL}${relativePath}`;
 };
 
 type ModalContentProps = {
