@@ -1,0 +1,23 @@
+[
+  {
+    "end": 4.53,
+    "word": "Sea of Galilee",
+    "start": 3.709,
+    "type": "location",
+    "id": "sea_of_galilee"
+  },
+  {
+    "end": 18.835,
+    "word": "Passover",
+    "start": 17.854,
+    "type": "image",
+    "id": "passover"
+  },
+  {
+    "end": 46.617,
+    "word": "barley",
+    "start": 46.276,
+    "type": "image",
+    "id": "barley"
+  }
+]

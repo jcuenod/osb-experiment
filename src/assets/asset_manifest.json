@@ -1,0 +1,20 @@
+[
+  {
+    "id": "sea_of_galilee",
+    "title": "Sea of Galilee",
+    "images": ["/sea_of_galilee.gif"],
+    "audio": "/sea_of_galilee_desc.mp3"
+  },
+  {
+    "id": "passover",
+    "title": "Passover",
+    "images": [],
+    "audio": "/passover_desc.mp3"
+  },
+  {
+    "id": "barley",
+    "title": "Barley",
+    "images": ["/barley_1.jpg", "/barley_2.jpg", "/barley_3.jpg"],
+    "audio": "/barley_desc.mp3"
+  }
+]
