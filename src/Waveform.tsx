@@ -3,7 +3,8 @@ import { AudioPlayerContext } from "./AudioPlayerContext";
 import TimestampedActionButtons from "./TimestampedActionButtons";
 import renderToCanvas from "./drawWaveform";
 
-const DURATION_MULTIPLIER = 15;
+// The higher this is, the wider the waveform will be
+const DURATION_MULTIPLIER = 10;
 
 function Waveform({ showModal }: { showModal: (id: string) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -43,7 +44,7 @@ function Waveform({ showModal }: { showModal: (id: string) => void }) {
 
   return (
     <>
-      <div style={{ position: "relative" }}>
+      <div style={{ position: "relative", textAlign: "left" }}>
         <TimestampedActionButtons
           leftPosition={leftPosition}
           width={width}
