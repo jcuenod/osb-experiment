@@ -1,26 +1,53 @@
-import { useContext } from "react";
-import waveformImg from "./assets/waveform.png";
-import { AudioContext } from "./AudioContext";
+import { useContext, useEffect, useRef } from "react";
+import { AudioPlayerContext } from "./AudioPlayerContext";
 import TimestampedActionButtons from "./TimestampedActionButtons";
+import renderToCanvas from "./drawWaveform";
 
-const getWidthOfWaveform = () => {
-  const img = new Image();
-  img.src = waveformImg;
-  return img.width;
-};
+const DURATION_MULTIPLIER = 15;
 
-function Waveform() {
-  const { currentTime, duration, seek } = useContext(AudioContext);
+function Waveform({ showModal }: { showModal: (id: string) => void }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { url, currentTime, duration, seek } = useContext(AudioPlayerContext);
 
-  const width = getWidthOfWaveform();
-
+  const width = duration * DURATION_MULTIPLIER;
   const leftPosition = (currentTime / duration) * width;
+
+  useEffect(() => {
+    //Use xmlhttprequest to get the audio file
+    const audioCtx = new AudioContext();
+    const request = new XMLHttpRequest();
+    request.open("GET", url, true);
+    request.responseType = "arraybuffer";
+    request.onload = async function () {
+      console.log("loaded");
+      const audioData = request.response;
+      const audioBuffer = await audioCtx.decodeAudioData(audioData);
+      // Use renderSvg from draw-wave to render the waveform
+      // const waveSVG = renderSvg(audioBuffer, 100, 300, "#52F6A4");
+      // waveSVG is a dom node
+      // setWaveString(waveSVG.outerHTML);
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      console.log(canvas);
+      renderToCanvas({
+        canvas,
+        buffer: audioBuffer,
+        barWidth: 3,
+        barSpacing: 2,
+        color1: "rgb(168,85,247)",
+        color2: "rgb(14,165,233)",
+      });
+    };
+    request.send();
+  }, [url]);
+
   return (
     <>
       <div style={{ position: "relative" }}>
         <TimestampedActionButtons
           leftPosition={leftPosition}
-          width={getWidthOfWaveform()}
+          width={width}
+          showModal={showModal}
         />
       </div>
       <div style={{ position: "relative" }}>
@@ -28,10 +55,10 @@ function Waveform() {
         <div
           style={{
             position: "absolute",
-            top: "calc(50% - 4px)",
-            height: "1px",
+            top: "calc(50% - 5px)",
+            height: "2px",
             width: "100%",
-            backgroundColor: "#cbd5e1",
+            backgroundColor: "#f1f5f9",
           }}
         />
         {/* This is a vertical red foreground line that marks the current timestamp (horizontally centered) */}
@@ -45,9 +72,7 @@ function Waveform() {
             zIndex: 1,
           }}
         />
-        <img
-          src={waveformImg}
-          alt="waveform"
+        <canvas
           style={{
             position: "relative",
             left: `50%`,
@@ -58,11 +83,16 @@ function Waveform() {
             const rect = e.currentTarget.getBoundingClientRect();
             const x = e.clientX - rect.left; //x position within the element.
             const percent = x / rect.width;
-            console.log(percent);
             // seek to this percent of the duration
             seek(duration * percent);
           }}
+          ref={canvasRef}
+          width={`${width}px`}
+          height="150px"
         />
+        {/* <img
+          src={waveformImg}
+        /> */}
       </div>
     </>
   );

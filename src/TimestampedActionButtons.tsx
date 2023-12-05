@@ -1,9 +1,7 @@
-import { useContext, useState } from "react";
-import { AudioContext } from "./AudioContext";
+import { useContext } from "react";
+import { AudioPlayerContext } from "./AudioPlayerContext";
 import TimestampedActionButton from "./TimestampedActionButton";
 import buttons from "./assets/john6v1-15.processed.json";
-import { createPortal } from "react-dom";
-import ModalContent from "./ModalContent";
 
 const getLeftRelativeToWidth = (
   start: number,
@@ -13,15 +11,17 @@ const getLeftRelativeToWidth = (
   return (start / duration) * width;
 };
 
+type TimestampedActionButtonsProps = {
+  leftPosition: number;
+  width: number;
+  showModal: (id: string) => void;
+};
 function TimestampedActionButtons({
   leftPosition,
   width,
-}: {
-  leftPosition: number;
-  width: number;
-}) {
-  const { duration, currentTime, pause } = useContext(AudioContext);
-  const [activeModalId, setActiveModalId] = useState<string>("");
+  showModal,
+}: TimestampedActionButtonsProps) {
+  const { duration, currentTime, pause } = useContext(AudioPlayerContext);
   return (
     <>
       <div
@@ -40,7 +40,7 @@ function TimestampedActionButtons({
             left={getLeftRelativeToWidth(button.start, duration, width) || 0}
             type={button.type as "location" | "image"}
             onClick={() => {
-              setActiveModalId(button.id);
+              showModal(button.id);
               pause();
             }}
             active={
@@ -50,34 +50,6 @@ function TimestampedActionButtons({
           />
         ))}
       </div>
-      {/* modal */}
-      {createPortal(
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            backgroundColor: "rgba(255,255,255,0.5)",
-            pointerEvents: activeModalId ? "auto" : "none",
-            opacity: activeModalId ? 1 : 0,
-            transform: `translateY(${activeModalId ? 0 : "5px"})`,
-            transition:
-              "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, backdropFilter 0.2s ease-in-out",
-            zIndex: 10,
-            // blur the background
-            backdropFilter: "blur(4px)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            overflowY: "auto",
-          }}
-          onClick={() => {
-            setActiveModalId("");
-          }}
-        >
-          <ModalContent id={activeModalId} />
-        </div>,
-        document.body
-      )}
     </>
   );
 }

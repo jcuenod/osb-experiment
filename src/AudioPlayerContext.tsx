@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { createContext } from "react";
+
 import audio from "/john6v1-15.mp3";
 
-const AudioContext = createContext({
+const AudioPlayerContext = createContext({
+  url: "",
   currentTime: 0,
   duration: 0,
   paused: true,
@@ -11,18 +13,21 @@ const AudioContext = createContext({
   seek: Function.prototype,
 });
 
-type AudioContextProps = {
+type AudioPlayerContextProps = {
   children: React.ReactNode;
 };
-function AudioContextProvider({ children }: AudioContextProps) {
+function AudioPlayerContextProvider({ children }: AudioPlayerContextProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [paused, setPaused] = useState(true);
+  const [url, setUrl] = useState("");
 
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
+
+    setUrl(audio.src);
 
     audio.addEventListener("loadedmetadata", () => {
       setDuration(audio.duration);
@@ -43,25 +48,23 @@ function AudioContextProvider({ children }: AudioContextProps) {
   }, []);
 
   return (
-    <AudioContext.Provider
+    <AudioPlayerContext.Provider
       value={{
+        url,
         currentTime,
         duration,
         paused,
         play: () => {
-          console.log("play");
           const audio = audioRef.current;
           if (!audio) return;
           audio.play();
         },
         pause: () => {
-          console.log("pause");
           const audio = audioRef.current;
           if (!audio) return;
           audio.pause();
         },
         seek: (time: number) => {
-          console.log("seeking to", time);
           const audio = audioRef.current;
           if (!audio) return;
           if (time < 0) {
@@ -78,8 +81,8 @@ function AudioContextProvider({ children }: AudioContextProps) {
     >
       <audio src={audio} ref={audioRef} />
       {children}
-    </AudioContext.Provider>
+    </AudioPlayerContext.Provider>
   );
 }
 
-export { AudioContext, AudioContextProvider };
+export { AudioPlayerContext, AudioPlayerContextProvider };

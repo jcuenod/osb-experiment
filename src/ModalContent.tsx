@@ -14,7 +14,6 @@ type ModalContentProps = {
 const ModalContent = ({ id }: ModalContentProps) => {
   const content = getContentById(id);
   if (!content) {
-    console.error("no content found for id", id);
     return <div></div>;
   }
   const { title, images, audio } = content;

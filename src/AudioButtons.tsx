@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { AudioContext } from "./AudioContext";
+import { AudioPlayerContext } from "./AudioPlayerContext";
 
 const buttonStyle = {
   padding: "0.3rem 0.3rem",
@@ -148,7 +148,8 @@ const SeekButton = ({ icon, onClick }: PlayPauseButtonProps) => (
 );
 
 function AudioButtons() {
-  const { paused, play, pause, seek, currentTime } = useContext(AudioContext);
+  const { paused, play, pause, seek, currentTime } =
+    useContext(AudioPlayerContext);
   return (
     <div
       style={{
