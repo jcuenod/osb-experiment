@@ -1,4 +1,4 @@
-import { IonButton, IonIcon } from "@ionic/react";
+import { IonButton } from "@ionic/react";
 import "./SliderButton.css";
 import CustomIonIcon from "./CustomIonIcon";
 
