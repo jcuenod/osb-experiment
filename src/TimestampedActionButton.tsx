@@ -94,7 +94,7 @@ const TimestampedActionButton = ({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          transform: active ? "scale(1.2)" : "scale(1)",
+          transform: active ? "scale(1.5)" : "scale(1)",
           transition: "transform 0.2s ease-in-out",
         }}
         onClick={onClick}
