@@ -15,6 +15,10 @@ import { AudioPlayerContext } from "./components/AudioPlayerContext";
 import { useContext, useState } from "react";
 import StudyNoteModal from "./components/StudyNoteModal";
 
+const getAbsolutePath = (relativePath: string) => {
+  return `${import.meta.env.BASE_URL}${relativePath}`;
+};
+
 const TabsAndRouter: React.FC = () => {
   const { pause } = useContext(AudioPlayerContext);
 
@@ -29,13 +33,13 @@ const TabsAndRouter: React.FC = () => {
         }}
       >
         <IonRouterOutlet>
-          <Route exact path="/contents">
+          <Route exact path={getAbsolutePath("contents")}>
             <ResourcesPage
               setActiveStudyNoteId={setActiveStudyNoteId}
               setIsOpen={setIsOpen}
             />
           </Route>
-          <Route exact path="/listen">
+          <Route exact path={getAbsolutePath("listen")}>
             <ListenPage
               setActiveStudyNoteId={setActiveStudyNoteId}
               setIsOpen={setIsOpen}
@@ -45,15 +49,18 @@ const TabsAndRouter: React.FC = () => {
         <Tab3 />
       </Route> */}
           <Route exact path="/">
-            <Redirect to="/contents" />
+            <Redirect to={getAbsolutePath("contents")} />
+          </Route>
+          <Route exact path={import.meta.env.BASE_URL}>
+            <Redirect to={getAbsolutePath("contents")} />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
-          <IonTabButton tab="contents" href="/contents">
+          <IonTabButton tab="contents" href={getAbsolutePath("contents")}>
             <IonIcon aria-hidden="true" icon={apps} />
             <IonLabel>Contents</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="listen" href="/listen">
+          <IonTabButton tab="listen" href={getAbsolutePath("listen")}>
             <IonIcon aria-hidden="true" icon={playCircle} />
             <IonLabel>Listen</IonLabel>
           </IonTabButton>
