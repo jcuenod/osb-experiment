@@ -17,7 +17,7 @@ type DrawParams = {
     color1: string
     color2: string
 }
-export default ({
+export const renderWaveformToCanvas = ({
     canvas,
     buffer,
     barWidth,

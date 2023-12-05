@@ -1,20 +1,27 @@
-[
-  {
-    "id": "sea_of_galilee",
-    "title": "Sea of Galilee",
-    "images": ["/sea_of_galilee.gif"],
-    "audio": "/sea_of_galilee_desc.mp3"
-  },
-  {
-    "id": "passover",
-    "title": "Passover",
-    "images": [],
-    "audio": "/passover_desc.mp3"
-  },
-  {
-    "id": "barley",
-    "title": "Barley",
-    "images": ["/barley_1.jpg", "/barley_2.jpg", "/barley_3.jpg"],
-    "audio": "/barley_desc.mp3"
-  }
-]
+{
+  "passage": "John 6:1-15",
+  "title": "The Feeding of the Five Thousand",
+  "assets": [
+    {
+      "id": "sea_of_galilee",
+      "title": "Sea of Galilee",
+      "type": "location",
+      "images": ["/sea_of_galilee.gif"],
+      "audio": "/sea_of_galilee_desc.mp3"
+    },
+    {
+      "id": "passover",
+      "title": "Passover",
+      "type": "concept",
+      "images": [],
+      "audio": "/passover_desc.mp3"
+    },
+    {
+      "id": "barley",
+      "title": "Barley",
+      "type": "image",
+      "images": ["/barley_1.jpg", "/barley_2.jpg", "/barley_3.jpg"],
+      "audio": "/barley_desc.mp3"
+    }
+  ]
+}

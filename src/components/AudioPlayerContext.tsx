@@ -1,22 +1,24 @@
 import { useEffect, useRef, useState } from "react";
 import { createContext } from "react";
 
-import audio from "/john6v1-15.mp3";
-
 const AudioPlayerContext = createContext({
   url: "",
   currentTime: 0,
   duration: 0,
   paused: true,
-  play: Function.prototype,
-  pause: Function.prototype,
-  seek: Function.prototype,
+  play: () => {},
+  pause: () => {},
+  seek: (time: number) => {},
 });
 
 type AudioPlayerContextProps = {
+  audioSrc: string;
   children: React.ReactNode;
 };
-function AudioPlayerContextProvider({ children }: AudioPlayerContextProps) {
+function AudioPlayerContextProvider({
+  audioSrc,
+  children,
+}: AudioPlayerContextProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -79,7 +81,7 @@ function AudioPlayerContextProvider({ children }: AudioPlayerContextProps) {
         },
       }}
     >
-      <audio src={audio} ref={audioRef} />
+      <audio src={audioSrc} ref={audioRef} />
       {children}
     </AudioPlayerContext.Provider>
   );

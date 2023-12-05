@@ -1,60 +1,38 @@
-import "./App.css";
-import Waveform from "./Waveform";
-import AudioButtons from "./AudioButtons";
-import { AudioPlayerContextProvider } from "./AudioPlayerContext";
-import ModalContent from "./ModalContent";
+import { IonApp, setupIonicReact } from "@ionic/react";
+import TabsAndRouter from "./TabsAndRouter";
+
+/* Core CSS required for Ionic components to work properly */
+import "@ionic/react/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+import "@ionic/react/css/normalize.css";
+import "@ionic/react/css/structure.css";
+import "@ionic/react/css/typography.css";
+
+/* Optional CSS utils that can be commented out */
+import "@ionic/react/css/padding.css";
+import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/text-alignment.css";
+import "@ionic/react/css/text-transformation.css";
+import "@ionic/react/css/flex-utils.css";
+import "@ionic/react/css/display.css";
+import { AudioPlayerContextProvider } from "./components/AudioPlayerContext";
+
+/* Theme variables */
+import "./theme/variables.css";
 import { useState } from "react";
 
-function App() {
-  const [activeModalId, setActiveModalId] = useState("");
+setupIonicReact();
+
+const App: React.FC = () => {
+  const [audioSrc, setAudioSrc] = useState<string>("/john6v1-15.mp3");
   return (
-    <>
-      <div
-        style={{
-          width: "640px",
-          overflow: "hidden",
-          border: "1px solid #aaa",
-          borderRadius: "1rem",
-          padding: "2rem 0",
-        }}
-      >
-        <AudioPlayerContextProvider>
-          <Waveform
-            showModal={(id: string) => {
-              setActiveModalId(id);
-            }}
-          />
-          <div>
-            <AudioButtons />
-          </div>
-        </AudioPlayerContextProvider>
-      </div>
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          backgroundColor: "rgba(255,255,255,0.5)",
-          pointerEvents: activeModalId ? "auto" : "none",
-          opacity: activeModalId ? 1 : 0,
-          transform: `translateY(${activeModalId ? 0 : "5px"})`,
-          transition:
-            "opacity 0.2s ease-in-out, transform 0.2s ease-in-out, backdropFilter 0.2s ease-in-out",
-          zIndex: 10,
-          // blur the background
-          backdropFilter: "blur(4px)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          overflowY: "auto",
-        }}
-        onClick={() => {
-          setActiveModalId("");
-        }}
-      >
-        <ModalContent id={activeModalId} />
-      </div>
-    </>
+    <IonApp>
+      <AudioPlayerContextProvider audioSrc={audioSrc}>
+        <TabsAndRouter />
+      </AudioPlayerContextProvider>
+    </IonApp>
   );
-}
+};
 
 export default App;

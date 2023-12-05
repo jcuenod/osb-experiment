@@ -1,0 +1,7 @@
+{
+  "name": "ionosb",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react-vite"
+}
