@@ -25,7 +25,9 @@ import { useState } from "react";
 setupIonicReact();
 
 const App: React.FC = () => {
-  const [audioSrc, setAudioSrc] = useState<string>("/john6v1-15.mp3");
+  const [audioSrc, setAudioSrc] = useState<string>(
+    "/osb-experiment/john6v1-15.mp3"
+  );
   return (
     <IonApp>
       <AudioPlayerContextProvider audioSrc={audioSrc}>

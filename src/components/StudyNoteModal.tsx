@@ -18,9 +18,9 @@ const getContentById = (id: string) => {
   return assetsManifest.assets.find((asset) => asset.id === id);
 };
 
-// const getAbsolutePath = (relativePath: string) => {
-//   return `${import.meta.env.BASE_URL}${relativePath}`;
-// };
+const getAbsolutePath = (relativePath: string) => {
+  return `${import.meta.env.BASE_URL}${relativePath}`;
+};
 
 type StudyNoteModalProps = {
   activeStudyNoteId: string;
@@ -73,7 +73,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
               {images.map((url: string) => (
                 <swiper-slide key={url}>
                   <img
-                    src={url}
+                    src={getAbsolutePath(url)}
                     alt={title}
                     style={{ maxHeight: "60vh", maxWidth: "80vw" }}
                   />
@@ -90,7 +90,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
               }}
             >
               <img
-                src={images[0]}
+                src={getAbsolutePath(images[0])}
                 alt={title}
                 style={{ maxHeight: "60vh", maxWidth: "80vw" }}
               />
@@ -106,7 +106,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
               alignItems: "center",
             }}
           >
-            {audio ? <audio controls src={audio} /> : null}
+            {audio ? <audio controls src={getAbsolutePath(audio)} /> : null}
           </div>
         )}
       </IonContent>
