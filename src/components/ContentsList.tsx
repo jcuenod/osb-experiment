@@ -72,6 +72,29 @@ const ResourcesList: React.FC<ResourcesListProps> = ({
           <IonLabel>Super Mario World</IonLabel>
         </IonItem> */}
       </IonList>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          margin: "1rem 1.5rem",
+        }}
+      >
+        <div style={{ maxWidth: "400px" }}>
+          <p>
+            <b>Please Note: </b>
+            This is a limited preview. It demonstrates a single pericope (John
+            6:1–15) with partial tagging and only a sample of enhanced
+            resources. The current pane is an overview of the contents of this
+            pericope.
+          </p>
+          <p>
+            Click <b>Listen</b> below for a demonstration of the audio study
+            notes.
+          </p>
+        </div>
+      </div>
     </IonContent>
   );
 };
