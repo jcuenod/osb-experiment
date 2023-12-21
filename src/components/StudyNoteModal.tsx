@@ -41,7 +41,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
   };
 
   return (
-    <IonModal isOpen={isOpen}>
+    <IonModal isOpen={isOpen} onWillDismiss={onClose}>
       <IonHeader>
         <IonToolbar>
           <IonTitle>{title}</IonTitle>
