@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AudioPlayerContext } from "./AudioPlayerContext";
-import { DURATION_MULTIPLIER } from "../contants";
+import { DURATION_MULTIPLIER } from "../constants";
 import buttons from "../assets/john6v1-15.processed.json";
 import SliderButton from "./SliderButton";
 

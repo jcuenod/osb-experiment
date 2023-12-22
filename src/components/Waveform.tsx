@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef } from "react";
 import { AudioPlayerContext } from "./AudioPlayerContext";
 import { renderWaveformToCanvas } from "../util/drawWaveform";
-import { DURATION_MULTIPLIER } from "../contants";
+import { DURATION_MULTIPLIER } from "../constants";
 
 interface WaveformProps {}
 const Waveform: React.FC<WaveformProps> = () => {
