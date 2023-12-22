@@ -1,11 +1,4 @@
-import {
-  IonButton,
-  IonContent,
-  IonIcon,
-  IonItem,
-  IonLabel,
-  IonList,
-} from "@ionic/react";
+import { IonButton, IonItem, IonLabel, IonList } from "@ionic/react";
 
 import { LocalizedDataContext } from "./LocalizedDataContext";
 import { useContext, useEffect, useState } from "react";
@@ -46,7 +39,7 @@ const ResourcesList: React.FC<ResourcesListProps> = ({
     setItems(orderedAssets);
   }, [dataContext]);
   return (
-    <IonContent color="light">
+    <>
       <IonList inset={true}>
         {items.map((item) => (
           <IonItem key={item.id}>
@@ -85,7 +78,7 @@ const ResourcesList: React.FC<ResourcesListProps> = ({
           </p>
         </div>
       </div>
-    </IonContent>
+    </>
   );
 };
 

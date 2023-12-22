@@ -13,28 +13,26 @@ const ListenPage: React.FC<ListenPageProps> = ({
   setIsOpen,
 }) => {
   return (
-    <IonPage>
-      <IonContent fullscreen>
-        <OsbHeader page="Listen" />
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
+    <>
+      <OsbHeader page="Listen" />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%",
+        }}
+      >
+        <AudioSlider
+          onViewStudyNote={(studyNoteId: string) => {
+            setActiveStudyNoteId(studyNoteId);
+            setIsOpen(true);
           }}
-        >
-          <AudioSlider
-            onViewStudyNote={(studyNoteId: string) => {
-              setActiveStudyNoteId(studyNoteId);
-              setIsOpen(true);
-            }}
-          />
-          <AudioButtons />
-        </div>
-      </IonContent>
-    </IonPage>
+        />
+        <AudioButtons />
+      </div>
+    </>
   );
 };
 

@@ -13,7 +13,7 @@ const ResourcesPage: React.FC<ResourcesPageProps> = ({
 }) => {
   return (
     <IonPage>
-      <IonContent fullscreen>
+      <IonContent fullscreen color="light">
         <OsbHeader page="Contents" />
         <ContentsList
           setActiveStudyNoteId={setActiveStudyNoteId}

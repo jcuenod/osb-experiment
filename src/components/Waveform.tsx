@@ -12,7 +12,15 @@ const Waveform: React.FC<WaveformProps> = () => {
   const leftPosition = (currentTime / duration) * width;
 
   useEffect(() => {
-    if (!url) return;
+    if (!url) {
+      // clear the canvas
+      const canvas = canvasRef.current;
+      if (!canvas) return;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return;
+    }
     const audioCtx = new AudioContext();
     const request = new XMLHttpRequest();
     request.open("GET", url, true);

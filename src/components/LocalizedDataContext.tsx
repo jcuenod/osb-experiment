@@ -7,11 +7,12 @@ interface LocalizedData {
   assets: Asset[];
   timestamps: Timestamp[];
 }
-const LocalizedDataContext = createContext<LocalizedData>({
+const emptyLocalizedData = {
   passageAudio: null,
   assets: [],
   timestamps: [],
-});
+};
+const LocalizedDataContext = createContext<LocalizedData>(emptyLocalizedData);
 
 const getImageUrl = (image: string) => {
   return `${import.meta.env.BASE_URL}${image}`;
@@ -39,18 +40,23 @@ const LocalizedDataContextProvider = ({
     const localizedRoot =
       import.meta.env.BASE_URL + `localized/${language.code}`;
     const fetchLocalizedData = async () => {
-      const response = await fetch(`${localizedRoot}/asset_manifest.json`);
-      const data = await response.json();
-      setLocalizedData({
-        passageAudio: getLocalizedAudioUrl(data.passage_audio, language.code),
-        assets: data.assets.map((asset: Asset) => ({
-          ...asset,
-          images: asset.images.map((image: string) => getImageUrl(image)),
-          audio: getLocalizedAudioUrl(asset.audio, language.code),
-        })),
-        timestamps: data.timestamps,
-      });
-      console.log(data);
+      try {
+        const response = await fetch(`${localizedRoot}/asset_manifest.json`);
+        const data = await response.json();
+        setLocalizedData({
+          passageAudio: getLocalizedAudioUrl(data.passage_audio, language.code),
+          assets: data.assets.map((asset: Asset) => ({
+            ...asset,
+            images: asset.images.map((image: string) => getImageUrl(image)),
+            audio: getLocalizedAudioUrl(asset.audio, language.code),
+          })),
+          timestamps: data.timestamps,
+        });
+      } catch (e) {
+        setLocalizedData(emptyLocalizedData);
+        console.error("Error fetching localized data");
+        console.error(e);
+      }
     };
     fetchLocalizedData();
   }, [passageId, language]);
