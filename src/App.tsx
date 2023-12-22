@@ -17,6 +17,7 @@ import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 import { AudioPlayerContextProvider } from "./components/AudioPlayerContext";
+import { LocalizationContextProvider } from "./components/LocalizationContext";
 
 /* Theme variables */
 import "./theme/variables.css";
@@ -30,9 +31,11 @@ const App: React.FC = () => {
   );
   return (
     <IonApp>
-      <AudioPlayerContextProvider audioSrc={audioSrc}>
-        <TabsAndRouter />
-      </AudioPlayerContextProvider>
+      <LocalizationContextProvider>
+        <AudioPlayerContextProvider audioSrc={audioSrc}>
+          <TabsAndRouter />
+        </AudioPlayerContextProvider>
+      </LocalizationContextProvider>
     </IonApp>
   );
 };

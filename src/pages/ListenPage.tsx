@@ -1,13 +1,8 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import AudioButtons from "../components/AudioButtons";
 import "./ListenPage.css";
 import AudioSlider from "../components/AudioSlider";
+import OsbHeader from "../components/OsbHeader";
 
 interface ListenPageProps {
   setActiveStudyNoteId: (studyNoteId: string) => void;
@@ -19,17 +14,8 @@ const ListenPage: React.FC<ListenPageProps> = ({
 }) => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Listen</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Listen</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <OsbHeader page="Listen" />
         <div
           style={{
             display: "flex",

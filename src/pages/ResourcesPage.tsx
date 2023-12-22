@@ -1,11 +1,6 @@
-import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonTitle,
-  IonToolbar,
-} from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import ContentsList from "../components/ContentsList";
+import OsbHeader from "../components/OsbHeader";
 import "./ResourcesPage.css";
 
 interface ResourcesPageProps {
@@ -18,17 +13,8 @@ const ResourcesPage: React.FC<ResourcesPageProps> = ({
 }) => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Contents</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Contents</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <OsbHeader page="Contents" />
         <ContentsList
           setActiveStudyNoteId={setActiveStudyNoteId}
           setIsOpen={setIsOpen}
