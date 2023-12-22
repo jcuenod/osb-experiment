@@ -12,6 +12,7 @@ const Waveform: React.FC<WaveformProps> = () => {
   const leftPosition = (currentTime / duration) * width;
 
   useEffect(() => {
+    if (!url) return;
     const audioCtx = new AudioContext();
     const request = new XMLHttpRequest();
     request.open("GET", url, true);
