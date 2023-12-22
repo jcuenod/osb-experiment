@@ -7,9 +7,8 @@ import {
   IonList,
 } from "@ionic/react";
 
-import buttons from "../assets/john6v1-15.processed.json";
-import assetsManifest from "../assets/asset_manifest.json";
-import { useEffect, useState } from "react";
+import { LocalizedDataContext } from "./LocalizedDataContext";
+import { useContext, useEffect, useState } from "react";
 import CustomIonIcon from "./CustomIonIcon";
 
 type Asset = {
@@ -28,13 +27,16 @@ const ResourcesList: React.FC<ResourcesListProps> = ({
   setActiveStudyNoteId,
   setIsOpen,
 }) => {
+  const dataContext = useContext(LocalizedDataContext);
+  const { assets, timestamps } = dataContext;
+
   const [items, setItems] = useState<Asset[]>([]);
   useEffect(() => {
-    const orderedIds = buttons
+    const orderedIds = timestamps
       .slice()
       .sort((a, b) => a.start - b.start)
-      .map((button) => button.id);
-    const orderedAssets = assetsManifest.assets
+      .map((ts) => ts.id);
+    const orderedAssets = assets
       .filter((asset) => orderedIds.includes(asset.id))
       .sort((a, b) => {
         const aIndex = orderedIds.indexOf(a.id);
@@ -42,7 +44,7 @@ const ResourcesList: React.FC<ResourcesListProps> = ({
         return aIndex - bIndex;
       });
     setItems(orderedAssets);
-  }, []);
+  }, [dataContext]);
   return (
     <IonContent color="light">
       <IonList inset={true}>

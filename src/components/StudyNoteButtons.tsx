@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { AudioPlayerContext } from "./AudioPlayerContext";
 import { DURATION_MULTIPLIER } from "../constants";
-import buttons from "../assets/john6v1-15.processed.json";
 import SliderButton from "./SliderButton";
+import { LocalizedDataContext } from "./LocalizedDataContext";
 
 const getLeftRelativeToWidth = (
   start: number,
@@ -12,12 +12,18 @@ const getLeftRelativeToWidth = (
   return (start / duration) * width;
 };
 
+const getAssetType = (id: string, assets: Asset[]) => {
+  const asset = assets.find((asset) => asset.id === id);
+  return asset?.type;
+};
+
 interface StudyNoteButtonsProps {
   onViewStudyNote: (studyNoteId: string) => void;
 }
 const StudyNoteButtons: React.FC<StudyNoteButtonsProps> = ({
   onViewStudyNote,
 }) => {
+  const { timestamps, assets } = useContext(LocalizedDataContext);
   const { url, currentTime, duration, seek, pause } =
     useContext(AudioPlayerContext);
 
@@ -34,17 +40,24 @@ const StudyNoteButtons: React.FC<StudyNoteButtonsProps> = ({
         transition: "transform 0.2s ease-in-out",
       }}
     >
-      {buttons.map((button, i) => (
+      {timestamps.map((timestamp, i) => (
         <SliderButton
           key={i}
-          left={getLeftRelativeToWidth(button.start, duration, width) || 0}
-          type={button.type as "map" | "image" | "concept" | "error"}
+          left={getLeftRelativeToWidth(timestamp.start, duration, width) || 0}
+          type={
+            getAssetType(timestamp.id, assets) as
+              | "map"
+              | "image"
+              | "concept"
+              | "error"
+          }
           onClick={() => {
-            onViewStudyNote(button.id);
+            onViewStudyNote(timestamp.id);
             pause();
           }}
           active={
-            currentTime >= button.start - 0.5 && currentTime <= button.end + 0.5
+            currentTime >= timestamp.start - 0.5 &&
+            currentTime <= timestamp.end + 0.5
           }
         />
       ))}

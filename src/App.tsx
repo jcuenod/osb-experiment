@@ -16,26 +16,22 @@ import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
 import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
-import { AudioPlayerContextProvider } from "./components/AudioPlayerContext";
 import { LocalizationContextProvider } from "./components/LocalizationContext";
+import { PassageContextProvider } from "./components/PassageContext";
 
 /* Theme variables */
 import "./theme/variables.css";
-import { useState } from "react";
 
 setupIonicReact();
 
 const App: React.FC = () => {
-  const [audioSrc, setAudioSrc] = useState<string>(
-    "/osb-experiment/audio/en/john6v1-15.mp3"
-  );
   return (
     <IonApp>
-      <LocalizationContextProvider>
-        <AudioPlayerContextProvider audioSrc={audioSrc}>
+      <PassageContextProvider>
+        <LocalizationContextProvider>
           <TabsAndRouter />
-        </AudioPlayerContextProvider>
-      </LocalizationContextProvider>
+        </LocalizationContextProvider>
+      </PassageContextProvider>
     </IonApp>
   );
 };

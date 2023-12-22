@@ -1,5 +1,7 @@
 {
+  "id": "john_6_1_15",
   "passage": "John 6:1-15",
+  "passage_audio": "/audio/john6v1-15.mp3",
   "title": "The Feeding of the Five Thousand",
   "assets": [
     {
@@ -7,14 +9,14 @@
       "title": "Sea of Galilee",
       "type": "location",
       "images": ["/image/sea_of_galilee.gif"],
-      "audio": "/audio/en/sea_of_galilee_desc.mp3"
+      "audio": "/audio/sea_of_galilee_desc.mp3"
     },
     {
       "id": "passover",
       "title": "Passover",
       "type": "concept",
       "images": [],
-      "audio": "/audio/en/passover_desc.mp3"
+      "audio": "/audio/passover_desc.mp3"
     },
     {
       "id": "barley",
@@ -25,7 +27,24 @@
         "/image/barley_2.jpg",
         "/image/barley_3.jpg"
       ],
-      "audio": "/audio/en/barley_desc.mp3"
+      "audio": "/audio/barley_desc.mp3"
+    }
+  ],
+  "timestamps": [
+    {
+      "end": 4.53,
+      "start": 3.709,
+      "id": "sea_of_galilee"
+    },
+    {
+      "end": 18.835,
+      "start": 17.854,
+      "id": "passover"
+    },
+    {
+      "end": 46.617,
+      "start": 46.276,
+      "id": "barley"
     }
   ]
 }

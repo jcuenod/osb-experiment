@@ -8,19 +8,16 @@ import {
   IonModal,
   IonIcon,
 } from "@ionic/react";
-import assetsManifest from "../assets/asset_manifest.json";
+import { LocalizedDataContext } from "./LocalizedDataContext";
 import { close } from "ionicons/icons";
 import { Switch, Case } from "./SwitchCase";
 import { register } from "swiper/element/bundle";
+import { useContext } from "react";
 register();
 
-const getContentById = (id: string) => {
-  return assetsManifest.assets.find((asset) => asset.id === id);
-};
-
-const getAbsolutePath = (relativePath: string) => {
-  return `${import.meta.env.BASE_URL}${relativePath}`;
-};
+// const getAbsolutePath = (relativePath: string) => {
+//   return `${import.meta.env.BASE_URL}${relativePath}`;
+// };
 
 type StudyNoteModalProps = {
   activeStudyNoteId: string;
@@ -32,7 +29,9 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
   isOpen,
   onClose,
 }) => {
-  const content = getContentById(activeStudyNoteId);
+  const { assets } = useContext(LocalizedDataContext);
+  const content = assets.find((asset) => asset.id === activeStudyNoteId);
+
   const { title, images, audio } = {
     title: "Not Found",
     images: [],
@@ -73,7 +72,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
               {images.map((url: string) => (
                 <swiper-slide key={url}>
                   <img
-                    src={getAbsolutePath(url)}
+                    src={url}
                     alt={title}
                     style={{ maxHeight: "60vh", maxWidth: "80vw" }}
                   />
@@ -90,7 +89,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
               }}
             >
               <img
-                src={getAbsolutePath(images[0])}
+                src={images[0]}
                 alt={title}
                 style={{ maxHeight: "60vh", maxWidth: "80vw" }}
               />
@@ -106,7 +105,7 @@ const StudyNoteModal: React.FC<StudyNoteModalProps> = ({
               alignItems: "center",
             }}
           >
-            {audio ? <audio controls src={getAbsolutePath(audio)} /> : null}
+            {audio ? <audio controls src={audio} /> : null}
           </div>
         )}
       </IonContent>

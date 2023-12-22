@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { createContext } from "react";
+import { LocalizedDataContext } from "./LocalizedDataContext";
 
 const AudioPlayerContext = createContext({
   url: "",
@@ -12,13 +13,10 @@ const AudioPlayerContext = createContext({
 });
 
 type AudioPlayerContextProps = {
-  audioSrc: string;
   children: React.ReactNode;
 };
-function AudioPlayerContextProvider({
-  audioSrc,
-  children,
-}: AudioPlayerContextProps) {
+function AudioPlayerContextProvider({ children }: AudioPlayerContextProps) {
+  const { passageAudio } = useContext(LocalizedDataContext);
   const audioRef = useRef<HTMLAudioElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -47,7 +45,7 @@ function AudioPlayerContextProvider({
     }, 100);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [passageAudio]);
 
   return (
     <AudioPlayerContext.Provider
@@ -81,7 +79,7 @@ function AudioPlayerContextProvider({
         },
       }}
     >
-      <audio src={audioSrc} ref={audioRef} />
+      <audio src={passageAudio || undefined} ref={audioRef} />
       {children}
     </AudioPlayerContext.Provider>
   );
