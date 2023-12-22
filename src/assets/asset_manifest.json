@@ -6,22 +6,26 @@
       "id": "sea_of_galilee",
       "title": "Sea of Galilee",
       "type": "location",
-      "images": ["/sea_of_galilee.gif"],
-      "audio": "/sea_of_galilee_desc.mp3"
+      "images": ["/image/sea_of_galilee.gif"],
+      "audio": "/audio/en/sea_of_galilee_desc.mp3"
     },
     {
       "id": "passover",
       "title": "Passover",
       "type": "concept",
       "images": [],
-      "audio": "/passover_desc.mp3"
+      "audio": "/audio/en/passover_desc.mp3"
     },
     {
       "id": "barley",
       "title": "Barley",
       "type": "image",
-      "images": ["/barley_1.jpg", "/barley_2.jpg", "/barley_3.jpg"],
-      "audio": "/barley_desc.mp3"
+      "images": [
+        "/image/barley_1.jpg",
+        "/image/barley_2.jpg",
+        "/image/barley_3.jpg"
+      ],
+      "audio": "/audio/en/barley_desc.mp3"
     }
   ]
 }
