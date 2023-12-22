@@ -12,32 +12,25 @@ const PageHolder = ({ setActiveStudyNoteId, setIsOpen }: PageHolderProps) => {
   const [currentTab, setCurrentTab] = useState<string>("contents");
   useEffect(() => {
     const hash = window.location.hash.replace("#", "");
-    setCurrentTab(hash);
+    setCurrentTab(["contents", "listen"].includes(hash) ? hash : "contents");
   }, [window.location.hash]);
 
-  switch (currentTab) {
-    case "contents":
-      return (
+  return (
+    <>
+      <div style={currentTab === "contents" ? {} : { display: "none" }}>
         <ResourcesPage
           setActiveStudyNoteId={setActiveStudyNoteId}
           setIsOpen={setIsOpen}
         />
-      );
-    case "listen":
-      return (
+      </div>
+      <div style={currentTab === "listen" ? {} : { display: "none" }}>
         <ListenPage
           setActiveStudyNoteId={setActiveStudyNoteId}
           setIsOpen={setIsOpen}
         />
-      );
-    default:
-      return (
-        <ResourcesPage
-          setActiveStudyNoteId={setActiveStudyNoteId}
-          setIsOpen={setIsOpen}
-        />
-      );
-  }
+      </div>
+    </>
+  );
 };
 
 export default PageHolder;
