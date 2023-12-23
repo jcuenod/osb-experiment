@@ -1,0 +1,38 @@
+{
+  "id": "john_6_1_15",
+  "passage": "यूहन्ना 6:1-15",
+  "passage_audio": "/audio/john6v1-15.mp3",
+  "title": "पांच हजार का भोजन",
+  "assets": [
+    {
+      "id": "sea_of_galilee",
+      "title": "गलील का सागर",
+      "type": "location",
+      "images": ["/image/sea_of_galilee.gif"],
+      "audio": "/audio/sea_of_galilee_desc.mp3"
+    },
+    {
+      "id": "passover",
+      "title": "घाटी",
+      "type": "concept",
+      "images": [],
+      "audio": "/audio/passover_desc.mp3"
+    },
+    {
+      "id": "barley",
+      "title": "जौ",
+      "type": "image",
+      "images": [
+        "/image/barley_1.jpg",
+        "/image/barley_2.jpg",
+        "/image/barley_3.jpg"
+      ],
+      "audio": "/audio/barley_desc.mp3"
+    }
+  ],
+  "timestamps": [
+    { "id": "sea_of_galilee", "start": 1.28, "end": 3.6 },
+    { "id": "passover", "start": 18.08, "end": 19.54 },
+    { "id": "barley", "start": 53.06, "end": 53.68 }
+  ]
+}
