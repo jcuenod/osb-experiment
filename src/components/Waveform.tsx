@@ -2,11 +2,28 @@ import { useContext, useEffect, useRef } from "react";
 import { AudioPlayerContext } from "./AudioPlayerContext";
 import { renderWaveformToCanvas } from "../util/drawWaveform";
 import { DURATION_MULTIPLIER } from "../constants";
+import { useGesture } from "@use-gesture/react";
+
+let currentTimeAtDragStart = 0;
 
 interface WaveformProps {}
 const Waveform: React.FC<WaveformProps> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { url, currentTime, duration, seek } = useContext(AudioPlayerContext);
+  const bindDrag = useGesture({
+    onDrag: (state) => {
+      const canvas = canvasRef.current;
+      if (!canvas) {
+        console.error("No canvas");
+        return;
+      }
+      const seekDiff = state.movement[0] / DURATION_MULTIPLIER;
+      seek(currentTimeAtDragStart - seekDiff);
+    },
+    onDragStart: (state) => {
+      currentTimeAtDragStart = currentTime;
+    },
+  });
 
   const width = duration * DURATION_MULTIPLIER;
   const leftPosition = (currentTime / duration) * width;
@@ -70,18 +87,12 @@ const Waveform: React.FC<WaveformProps> = () => {
           position: "relative",
           left: `50%`,
           transform: `translateX(-${leftPosition}px)`,
-          transition: "transform 0.2s ease-in-out",
-        }}
-        onClick={(e) => {
-          const rect = e.currentTarget.getBoundingClientRect();
-          const x = e.clientX - rect.left; //x position within the element.
-          const percent = x / rect.width;
-          // seek to this percent of the duration
-          seek(duration * percent);
+          touchAction: "none",
         }}
         ref={canvasRef}
         width={`${width}px`}
         height="150px"
+        {...bindDrag()}
       />
     </div>
   );
