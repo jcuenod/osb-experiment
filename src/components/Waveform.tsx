@@ -87,6 +87,7 @@ const Waveform: React.FC<WaveformProps> = () => {
           position: "relative",
           left: `50%`,
           transform: `translateX(-${leftPosition}px)`,
+          transition: "transform 120ms ease",
           touchAction: "none",
         }}
         ref={canvasRef}
