@@ -6,24 +6,37 @@ import { useGesture } from "@use-gesture/react";
 
 let currentTimeAtDragStart = 0;
 
+const handleTap = (
+  event: React.MouseEvent<HTMLCanvasElement, MouseEvent>,
+  seek: (time: number) => void,
+  duration: number
+) => {
+  const rect = event.currentTarget.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const percent = x / rect.width;
+  seek(duration * percent);
+};
+
 interface WaveformProps {}
 const Waveform: React.FC<WaveformProps> = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { url, currentTime, duration, seek } = useContext(AudioPlayerContext);
-  const bindDrag = useGesture({
-    onDrag: (state) => {
-      const canvas = canvasRef.current;
-      if (!canvas) {
-        console.error("No canvas");
-        return;
-      }
-      const seekDiff = state.movement[0] / DURATION_MULTIPLIER;
-      seek(currentTimeAtDragStart - seekDiff);
+  const bindDrag = useGesture(
+    {
+      onDrag: (state) => {
+        if (state.tap) {
+          handleTap(state.event, seek, duration);
+          return;
+        }
+        const seekDiff = (state.movement[0] - 3) / DURATION_MULTIPLIER;
+        seek(currentTimeAtDragStart - seekDiff);
+      },
+      onDragStart: (state) => {
+        currentTimeAtDragStart = currentTime;
+      },
     },
-    onDragStart: (state) => {
-      currentTimeAtDragStart = currentTime;
-    },
-  });
+    { drag: { filterTaps: true } }
+  );
 
   const width = duration * DURATION_MULTIPLIER;
   const leftPosition = (currentTime / duration) * width;
